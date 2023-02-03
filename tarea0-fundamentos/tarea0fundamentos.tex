@@ -1,0 +1,253 @@
+\documentclass[14pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+%Idioma
+\usepackage[spanish]{babel}
+%Para expresiones matematicas
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{physics}
+%Imagenes
+\usepackage{graphicx}
+\usepackage{color}
+%Para dibujar
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{babel,patterns,snakes}
+\usetikzlibrary{shapes.callouts}
+\usetikzlibrary{calc,patterns,angles,quotes}
+\usetikzlibrary{shadings}
+%Cajas con colores
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+%Ejemplo de lo anterior
+%\begin{equation}
+% a x^2 + bx + c = 0 \rightarrow
+%\tcboxmath[colback=magenta!25!white,colframe=magenta, title=Solución]
+%{x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}}  
+%\end{equation}
+%
+%Estilo fancy
+\usepackage{fancyhdr}
+%Interlineado y margenes y poco mas
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{multicol}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+%Empieza documento
+\begin{document}
+%Cajas comentadas 
+\newcommand{\commentedbox}[2]{%
+  \mbox{
+    \begin{tabular}[t]{@{}c@{}}
+    $\boxed{\displaystyle#1}$\\
+    #2
+    \end{tabular}%
+  }%
+}
+%Definimos el estilo de las paginas
+\pagestyle{fancy}
+\lhead{\itshape Semestre 2023-1}
+\rhead{Tarea 0}
+\Large{\textit{Inteligencia Artificial} - Fundamentos}\\
+\normalsize
+Rodolfo Armando Jaramillo Ruiz\\
+27 de Enero de 2023\\
+\subsection*{Optimización y probabilidad}
+
+\textbf{a.}\quad Empiezo por derivar $f(\theta)$:
+\begin{equation}
+f'(\theta)=2\sum_{i=1}^{n}w_i(\theta-x_i)
+\end{equation}
+Posteriormente se iguala a cero y procedo a despejar $\theta$:
+\begin{equation*}
+2\sum_{i=1}^{n}w_i(\theta-x_i)=0
+\end{equation*}
+\begin{equation*}
+\sum_{i=1}^{n}w_i\theta-\sum_{i=1}^{n}w_ix_i=0
+\end{equation*}
+\begin{equation*}
+\theta\sum_{i=1}^{n}w_i=\sum_{i=1}^{n}w_ix_i
+\end{equation*}  
+\begin{equation}
+\theta=\frac{\sum_{i=1}^{n}w_ix_i}{\sum_{i=1}^{n}w_i}
+\end{equation} 
+Obtuve el valor de $\theta$ que optimiza la la función, pero ¿cómo sé que es un valor mínimo? Usando el criterio de la segunda derivada, por lo que procedo a derivar nuevamente la ecuación (1).
+\begin{equation}
+f''(\theta)=2\sum_{i=1}^{n}w_i
+\end{equation}
+Inmediatamente se puede ver que la segunda derivada es siempre positiva, dado que $w_i$ son reales positivos. Por lo tanto, tomando el criterio de la segunda derivada, se concluye que el valor de $\theta$ obtenido en la ecuación (2) es un mínimo.\\
+Este valor de $\theta$ obtenido tiene la forma de la expresión del centro de masa para una distribución discreta de masa, por tanto si hubiera alguna $w_i$ negativa, alejaría el valor del análogo al centro de masa, como si fuera una "masa negativa".\\
+\textbf{b.}\quad Consideraciones:\\
+\begin{equation}
+\mathbf{x}=(x_1,...,x_d)\in\mathbb{R}^d
+\end{equation}
+\begin{equation}
+f(\mathbf{x})=\max_{s\in [-1,1]}\Sigma_{i=1}^{d}sx_i
+\end{equation}
+\begin{equation}
+g(\mathbf{x})=\Sigma_{i=1}^{d}\max_{s_i\in [-1,1]}s_ix_i
+\end{equation}
+Se ve que lo que hace la función $f$ es tomar la suma de $d$ reales y multiplicarla por un factor $s\in[-1,1]$ que lo haga máximo, mientras que $g$ hace lo mismo, pero no lo hace con la suma en sí, si no que multiplica a cada término por un $s_i$ haciendo a cada termino $s_ix_i$ lo más grande para cada término. Por lo tanto, $f$ es a lo más igual de grande que $g$ (como en el caso de $d=1$ donde $f=g$), es decir $f(\mathbf{x})\leq g(\mathbf{x})$.\\
+\textbf{c.}\quad La función de recurrencia se contruye como sigue:\\
+$$
+	V(n)=0\quad\text{En el caso que n=1}
+$$
+$$
+	V(n)=0\quad\text{En el caso que n=2}
+$$
+$$
+	V(n)=V(n)-a\quad\text{En el caso que n=3}
+$$
+$$
+	V(n)=V(n)\quad\text{En el caso que n=4}
+$$
+$$
+	V(n)=V(n)\quad\text{En el caso que n=5}
+$$
+$$
+	V(n)=V(n)+b\quad\text{En el caso que n=6}
+$$
+Por lo que la función completa sería:\\
+\begin{equation}
+	V(n)=4V(n)+b-a
+\end{equation}
+Por lo que solo queda calcular la esperanza como sigue:
+$$
+E[V(n)]=\frac{1}{6}(4V(n)+b-a)		
+$$
+\\
+\textbf{d.}\quad Tengo que para la secuencia $\{S,A,A,A,S,A\}$ la probabilidad de obtenerla es la siguiente función: 
+\begin{equation}
+L(p)=(1-p)ppp(1-p)p=p^{4}(1-p)^{2}
+\end{equation}
+El valor de $p$ que maximiza la probabilidad de obtener esta secuencia se obtiene de la siguiente forma:\\
+Primero; se puede ver que $L(p)$ es un polinomio de grado 6, por lo que la primera derivada es un polinomio de grado 5, que al igualarla a cero para optimizar $L(p)$ se obtendrá que hay que despejar una ecuación de quinto grado, lo cual es, por decir lo menos, complicado. Por lo tanto, me iré por el camino de optimizar la función $ln[L(p)]$ que, debido a que la función logaritmo natural es una función creciente, conserva los máximos y mínimos de la función de la función original.\\
+Procedo:
+\begin{equation}
+\frac{d}{dp}\{ln[L(p)]\}=\frac{d}{dp}\{ln[p^4(1-p)^{2}]\}
+\end{equation}
+\begin{equation*}
+\frac{d}{dp}\{ln[L(p)]\}=\frac{d}{dp}\{ln[p^4]+ln[(1-p)^{2}]\}
+\end{equation*}
+\begin{equation*}
+\frac{d}{dp}\{ln[L(p)]\}=\frac{d}{dp}\{4ln[p]+2ln[(1-p)]\}
+\end{equation*}
+\begin{equation*}
+\frac{d}{dp}\{ln[L(p)]\}=4\frac{d}{dp}ln[p]+2\frac{d}{dp}ln[(1-p)]
+\end{equation*}
+\begin{equation}
+\frac{d}{dp}\{ln[L(p)]\}=\frac{4}{p}-\frac{2}{1-p}
+\end{equation}
+Se iguala la derivada a cero y se despeja $p$:\\
+\begin{equation}
+\frac{4}{p}-\frac{2}{1-p}=0
+\end{equation}
+\begin{equation*}
+\frac{4(1-p)-2p}{p(1-p)}=0
+\end{equation*}
+\begin{equation*}
+4(1-p)-2p=0
+\end{equation*}
+\begin{equation*}
+4-4p-2p=0\rightarrow 4-6p=0
+\end{equation*}
+\begin{equation}
+p=\frac{2}{3}
+\end{equation}\\
+Para saber si este valor es un máximo, tengo que verificar que la segunda derivada evaluada en este punto sea menor a cero:
+\begin{equation}
+\frac{d^2}{dp^2}\{ln[L(p)]\}=-\frac{4}{p^2}-\frac{2}{(1-p)^2}
+\end{equation}
+\begin{equation}
+\frac{d^2}{dp^2}\{ln[L(p)]\}=-\left(\frac{4}{p^2}+\frac{2}{(1-p)^2}\right)
+\end{equation}
+Inmediatamente se ve que lo contenido entre paréntesis en la ecuación anterior es positivo, cada término es positivo sin importar el valor de $p$. Por lo tanto, $p=2/3$ maximiza la probabilidad de obtener la secuencia $\{S,A,A,A,S,A\}$. Significa que la moneda debe estar cargada para caer águila con probabilidad $2/3$ para que sea lo más probable obtener esa secuencia.\\
+
+\textbf{e.}\quad	 Al ser que $P(A|B)=P(B|A)$ y que $P(X|Y)=P(X\cap Y)/P(X)$ se tiene que:
+\begin{equation*}
+\frac{P(A\cap B)}{P(B)}=\frac{P(A\cap B)}{P(A)}
+\rightarrow\frac{1}{P(B)}=\frac{1}{P(A)}\rightarrow P(A)=P(B)
+\end{equation*}
+Ahora tenemos que la probabilidad de que ocurra A es igual a la probabilidad de que ocurra B. Considerando la probabilidad de la unión:
+\begin{equation}
+P(A\cup B)=P(A)+P(B)-P(A\cap B)=1/2
+\end{equation}
+\begin{equation*}
+2P(A)-P(A\cap B)=1/2 \rightarrow 2P(A)=1/2+P(A\cap B)
+\end{equation*}
+\begin{equation}
+P(A)=1/4+\frac{1}{2}P(A\cap B)
+\end{equation}
+Por lo tanto, sabiendo que $P(A\cap B)>0$:
+\begin{equation}
+P(A)>1/4
+\end{equation}
+\\
+\textbf{f.}\quad La función\\
+\begin{equation}
+	f(\mathbf{w})=\left(\sum_{i=1}^{n}\sum_{j=1}^{n}(\mathbf{a}_{i}^{\top}\mathbf{w}-\mathbf{b}_{i}^{\top}\mathbf{w})^2\right)+\frac{\lambda}{2}||\mathbf{w}||_{2}^{2}
+\end{equation}
+Tiene un gradiente que se calcula como sigue:
+\begin{equation*}
+	\dv{w_{k}}f(w_{k})=\dv{w_{k}}\left[\left(\sum_{i=1}^{n}\sum_{j=1}^{n}(\mathbf{a}_{i}^{\top}w_{k}-\mathbf{b}_{i}^{\top}w_{k})^2\right)+\frac{\lambda}{2}||w_{k}||_{2}^{2}\right]
+\end{equation*}
+\begin{equation*}
+	\dv{w_{k}}f(w_{k})=\left(\sum_{i=1}^{n}\sum_{j=1}^{n}2(\mathbf{a}_{i}^{\top}-\mathbf{b}_{i}^{\top})(\mathbf{a}_{i}^{\top}w_{k}-\mathbf{b}_{i}^{\top}w_{k})\right)+\lambda||w_{k}||_{2}
+\end{equation*}
+\begin{equation*}
+	\dv{w_{k}}f(w_{k})=\left(2\sum_{i=1}^{n}\sum_{j=1}^{n}(\mathbf{a}_{i}^{\top}-\mathbf{b}_{i}^{\top})(\mathbf{a}_{i}^{\top}w_{k}-\mathbf{b}_{i}^{\top}w_{k})\right)+\lambda||w_{k}||_{2}
+\end{equation*}
+Este sería la forma de los elementos del gradiente:
+\begin{equation}
+	\nabla_{i} f(\mathbf{w})=\left(2\sum_{i=1}^{n}\sum_{j=1}^{n}(\mathbf{a}_{i}^{\top}-\mathbf{b}_{i}^{\top})(\mathbf{a}_{i}^{\top}w_{i}-\mathbf{b}_{i}^{\top}w_{i})\right)+\lambda||w_{i}||_{2}
+\end{equation}
+\subsection*{Complejidad}
+\textbf{a.}\quad
+Para empezar este problema podemos considerar el problema de un rectángulo en una cuadricula de $n\times n$, donde se tiene que recorrer cada vértice que conforma la cuadricula ($n^2$), en donde se va a incrementar la longitud y la altura ($n^2$), de forma que para este caso sería una complejidad $O(n^4)$.
+Por lo que para cuatro cuadrados sería $O(n^16)$. 
+\\
+\textbf{b.}\quad
+Bajo estas condiciones la función de recurrencia
+\begin{equation*}
+	V(i,j)=c(i,j)+\min\{V(i-1,j),V(i,j-1)\}
+\end{equation*}
+Para no calcular los mismos costos de utiliza una matriz que conserva los costos de cada nodo que ya fue calculado. El algoritmo queda como sigue:
+$$
+\textbf{function V:}
+$$
+$$
+\textbf{if}\quad i==0\quad\textbf{or}\quad j==0\quad\textbf{then}
+$$
+$$\textbf{return}\quad 0
+$$
+$$
+\textbf{end}
+$$
+$$
+\textbf{if}\quad\textit{grid}[i][j]==cost\quad\textbf{then}
+$$
+$$
+\textbf{return}\quad\textit{grid}[i][j]=c(i,j)+\min\{V(i-1,j),V(i,j-1)\}
+$$
+$$
+\textbf{end}
+$$
+$$
+\textbf{return}\quad grid[i][j]
+$$
+\\
+
+
+
+
+
+
+
+
+\end{document}
