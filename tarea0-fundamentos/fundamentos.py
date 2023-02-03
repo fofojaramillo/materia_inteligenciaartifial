@@ -181,5 +181,5 @@ def find_nonsingleton_words(text: str) -> Set[str]:
     for i in dic:
         if dic[i] > 1:
             words.add(i)
-    return words 
+    return words
     # Fin de tu código
