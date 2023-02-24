@@ -1,0 +1,94 @@
+\documentclass[14pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+%Idioma
+\usepackage[spanish]{babel}
+%Para expresiones matematicas
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{physics}
+%Imagenes
+\usepackage{graphicx}
+\usepackage{color}
+%Para dibujar
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{babel,patterns,snakes}
+\usetikzlibrary{shapes.callouts}
+\usetikzlibrary{calc,patterns,angles,quotes}
+\usetikzlibrary{shadings}
+%Cajas con colores
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+%Ejemplo de lo anterior
+%\begin{equation}
+% a x^2 + bx + c = 0 \rightarrow
+%\tcboxmath[colback=magenta!25!white,colframe=magenta, title=Solución]
+%{x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}}  
+%\end{equation}
+%
+%Estilo fancy
+\usepackage{fancyhdr}
+%Interlineado y margenes y poco mas
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{multicol}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+%Empieza documento
+\begin{document}
+%Cajas comentadas 
+\newcommand{\commentedbox}[2]{%
+  \mbox{
+    \begin{tabular}[t]{@{}c@{}}
+    $\boxed{\displaystyle#1}$\\
+    #2
+    \end{tabular}%
+  }%
+}
+%Definimos el estilo de las paginas
+\pagestyle{fancy}
+\lhead{\itshape Semestre 2023-1}
+\rhead{Tarea 0}
+\Large{\textit{Inteligencia Artificial} - Sentimientos}\\
+\normalsize
+Rodolfo Armando Jaramillo Ruiz\\
+25 de Febrero de 2023\\
+\subsection*{Construyendo la intuición}
+\quad Se tiene el siguiente conjunto de mini-reseñas:
+\begin{enumerate}
+	\item $(-1)$ not good
+	\item $(-1)$ pretty bad
+	\item $(+1)$ good plot
+	\item $(+1)$ pretty scenery
+\end{enumerate}
+A cada reseña se le asocia un vector de características $\phi(x)$ donde se asocia a cada palabra la cantidad de veces que aparece en la reseña. Por ejemplo:\\
+\begin{equation*}
+	\phi(x)=\{\text{not}:1,\text{good}:1\}
+\end{equation*} 
+Se usa la definición de pérdida de articulación
+\begin{equation*}
+	\text{Loss}_{\text{hinge}}=\text{max}\{0,1-\bm{w}\phi(x)y\}
+\end{equation*}
+Todo donde $x$ es el texto de la reseña, $y$ es la etiqueta correcta y $\bm{w}$ es el vector de pesos.\\
+\textbf{a.} Usando el descenso de gradiente estocástico una por cada una de las reseñas en el orden en que se muestran
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
