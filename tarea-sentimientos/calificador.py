@@ -1,4 +1,5 @@
 import string
+from util import *
 import util
 import random
 import sentimientos
@@ -14,6 +15,7 @@ def test_3a():
         output = sentimientos.extractWordFeatures(test_case["input"])
         assert output == test_case["output"]
 
+test_3a()
 
 test_cases_3b = [
     {
@@ -48,6 +50,7 @@ def test_3b():
         assert weights[test_case["greaterThanKey"]] > 0
         assert weights[test_case["lessThanKey"]] < 0
 
+test_3b()
 
 def test_3b2():
     trainExamples = readExamples("polarity.train")
@@ -77,6 +80,7 @@ def test_3b2():
     assert trainError < 0.04
     assert validationError < 0.30
 
+test_3b2()
 
 def test_3c0():
     weights = {"hello": 1, "world": 1}
