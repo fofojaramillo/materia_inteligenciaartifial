@@ -50,6 +50,7 @@ def test_3b():
         assert weights[test_case["greaterThanKey"]] > 0
         assert weights[test_case["lessThanKey"]] < 0
 
+test_3b()
 
 def test_3b2():
     trainExamples = readExamples("polarity.train")
@@ -78,7 +79,6 @@ def test_3b2():
     )
     assert trainError < 0.04
     assert validationError < 0.30
-
 
 def test_3c0():
     weights = {"hello": 1, "world": 1}

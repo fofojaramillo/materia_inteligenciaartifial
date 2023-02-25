@@ -62,7 +62,22 @@ def learnPredictor(
     weights = {}  # característica => peso
 
     # Inicio de tu código
-    raise Exception("Aún no implementada")
+    for x, y in trainExamples:
+        for feature in featureExtractor(x):
+            weights[feature]=0   
+    
+    for i in range(numEpochs):
+        for x, y in trainExamples:
+            feature = featureExtractor(x)
+            #margen
+            margin = dotProduct(feature,weights)*y
+            #gradiente en perdida de articulación
+            nabla = {key: feature[key]*y for key in featureExtractor(x)} if 1-margin>0 else {}
+            #actualizamos pesos
+            newweights = dict(weights)
+            for key in nabla:
+                    newweights[key] += nabla[key]
+            weights = newweights
     # Fin de tu código
     return weights
 
