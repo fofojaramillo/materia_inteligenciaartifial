@@ -1,4 +1,5 @@
 import string
+from util import * 
 import util
 import random
 import sentimientos
