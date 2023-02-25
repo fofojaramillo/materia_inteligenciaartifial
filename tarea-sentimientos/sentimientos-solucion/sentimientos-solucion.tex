@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 %Idioma
 \usepackage[spanish]{babel}
+\spanishdecimal{.}
 %Para expresiones matematicas
 \usepackage{titlesec}
 \usepackage{amsmath}
@@ -59,7 +60,7 @@
 \normalsize
 Rodolfo Armando Jaramillo Ruiz\\
 25 de Febrero de 2023\\
-\subsection*{Construyendo la intuición}
+\subsection*{1. Construyendo la intuición}
 \quad Se tiene el siguiente conjunto de mini-reseñas:
 \begin{enumerate}
 	\item $(-1)$ not good
@@ -76,7 +77,156 @@ Se usa la definición de pérdida de articulación
 	\text{Loss}_{\text{hinge}}=\text{max}\{0,1-\bm{w}\phi(x)y\}
 \end{equation*}
 Todo donde $x$ es el texto de la reseña, $y$ es la etiqueta correcta y $\bm{w}$ es el vector de pesos.\\
-\textbf{a.} Usando el descenso de gradiente estocástico una por cada una de las reseñas en el orden en que se muestran
+\textbf{a.} Supongamos que corremos el descenso de gradiente estocastico una vez por cada una de las cuatro muestras en el orden dado, actualizando los pesos de acuerdo a:
+\begin{equation*}
+	\mathbf{w}\leftarrow\mathbf{w}-\eta\nabla_{w}\text{Loss}_{\text{hinge}}
+\end{equation*}
+Despues de las actualizaciones, ¿cuales son los pesos de las seis palabras ("pretty",
+"good", "bad", "plot", "not", "scenery")que aparecen en las reseñas de arriba?\\
+\begin{itemize}
+	\item $\eta=0.1$
+	\item $\mathbf{w}$ inicial: $\mathbf{w}=[0,0,0,0,0,0]$
+	\item $\nabla_{w}\text{Loss}_{\text{hinge}}$ es cero cuando el margen es exactamente 1
+\end{itemize}
+Se empieza calculando el $\nabla_{w}\text{Loss}_{\text{hinge}}$ que sería la siguiente expresión:
+\begin{equation*}
+	\nabla_{w}\text{Loss}_{\text{hinge}}(x,y,\mathbf{w})=\left\{ \begin{array}{lcc}
+             -\phi(x)y &   si  & 1-\mathbf{w}\cdot\phi > 0 \\
+             \\ 0 &  \text{en otro caso} \\
+             \end{array}
+   \right.
+\end{equation*}
+Para la primera reseña tenemos lo siguiente:\\
+\begin{equation*}
+	\phi(x)=\{\text{not}:1,\text{good}:1\}=[0,1,0,0,1,0]
+\end{equation*}
+Por lo que
+\begin{equation*}
+	-\phi(x)y=-[0,1,0,0,1,0](-1)=[0,1,0,0,1,0]
+\end{equation*}
+Entonces $\mathbf{w}$ queda
+\begin{equation*}
+	\mathbf{w}=[0,0,0,0,0,0]-0.1[0,1,0,0,1,0]
+\end{equation*}
+\begin{equation*}
+	\mathbf{w}=[0,-0.1,0,0,-0.1,0]
+\end{equation*}
+Para la segunda reseña tenemos lo siguiente:\\
+\begin{equation*}
+	\phi(x)=\{\text{pretty}:1,\text{bad}:1\}=[1,0,1,0,0,0]
+\end{equation*}
+Por lo que
+\begin{equation*}
+	-\phi(x)y=-[1,0,1,0,0,0](-1)=[1,0,1,0,0,0]
+\end{equation*}
+Entonces $\mathbf{w}$ queda
+\begin{equation*}
+	\mathbf{w}=[0,-0.1,0,0,-0.1,0]-0.1[1,0,1,0,0,0]
+\end{equation*}
+\begin{equation*}
+	\mathbf{w}=[-0.1,-0.1,-0.1,0,-0.1,0]
+\end{equation*}
+Para la tercera reseña tenemos lo siguiente:\\
+\begin{equation*}
+	\phi(x)=\{\text{good}:1,\text{plot}:1\}=[0,1,0,1,0,0]
+\end{equation*}
+Por lo que
+\begin{equation*}
+	-\phi(x)y=-[0,1,0,1,0,0](1)=[0,-1,0,-1,0,0]
+\end{equation*}
+Entonces $\mathbf{w}$ queda
+\begin{equation*}
+	\mathbf{w}=[0,-0.1,0,0,-0.1,0]-0.1[0,-1,0,-1,0,0]
+\end{equation*}
+\begin{equation*}
+	\mathbf{w}=[-0.1,0,-0.1,0.1,-0.1,0]
+\end{equation*}
+Para la cuarta reseña tenemos lo siguiente:\\
+\begin{equation*}
+	\phi(x)=\{\text{pretty}:1,\text{scenary}:1\}=[1,0,0,0,0,1]
+\end{equation*}
+Por lo que
+\begin{equation*}
+	-\phi(x)y=-[1,0,0,0,0,1](1)=[-1,0,0,0,0,-1]
+\end{equation*}
+Entonces $\mathbf{w}$ queda
+\begin{equation*}
+	\mathbf{w}=[-0.1,0,-0.1,0.1,-0.1,0]-0.1[-1,0,0,0,0,-1]
+\end{equation*}
+Tenemos finalmente:
+\begin{equation*}
+	\mathbf{w}=[0,0,-0.1,0.1,-0.1,-0.1]
+\end{equation*}
+\textbf{b.} Dado el siguiente conjunto de reseñas
+\begin{enumerate}
+	\item $(-1)$ bad
+	\item $(1)$ good
+	\item $(+1)$ not bad
+	\item $(-1)$ not good
+\end{enumerate}
+Muestra que no hay clasificador lineal que utilice características de palabras que tenga
+cero error sobre este conjunto de datos. Recuerda que esta es una pregunta sobre clasificadores, no sobre algoritmos de optimización; tu demostración debe ser correcta para cualquier clasificador lineal, sin importar en cómo se aprenden los pesos.\\
+El vector de pesos para este conjunto de reseñas es:\\
+\begin{equation*}
+	\mathbf{w}=[w_{bad},w_{good},w_{not}]
+\end{equation*}
+Los vectores de caracteristicas correspondientes son
+\begin{equation*}
+\begin{array}{cc}
+\phi(x)=\{\text{bad}:1\} & \phi(x)=\{\text{not}:1,\text{bad}:1\} \\
+\phi(x)=\{\text{good}:1\} &  \phi(x)=\{\text{not}:1,\text{bad}:1\} \\
+\end{array}
+\end{equation*}
+De aquí se entiende el siguiente sistema de ecuaciones:
+\begin{equation*}
+\begin{array}{c}
+w_{bad}=-1\\
+w_{good}=1\\
+w_{bad}+w_{not}=1\\
+w_{good}+w_{not}=-1
+\end{array}
+\end{equation*}
+Que no tiene solución, es inconsistente, por lo tanto, no existe un clasificador lineal que tenga cero error.\\
+Se puede añadir la siguiente característica\\
+\begin{equation*}
+	cos(\mathbf{w}\cdot\phi(x))
+\end{equation*}
+Para que el sistema tenga solución, y en consecuencia haya un clasificador lineal que tenga cero error.
+\subsection*{2. Prediciendo calificadores de películas}
+Supongamos que estamos interesados en predecir una calificación numérica para reseñas de películas. Vamos a usar un predictor no-lineal que toma una reseña de películas x y regresa $\sigma(\mathbf{w}\cdot\phi(x))$, donde $\sigma(z)=(1+e^{z})^{-1}$ es la función logística que aplasta un numero real al rango (0, 1). Para este problema, supón que la calificación de películas y es una variable con valor real en el
+rango [0, 1].\\
+\textbf{a.} La pérdida cuadratica tiene la siguiente forma:
+\begin{equation*}
+	\text{Loss}(x,y,\mathbf{w})=(\sigma(\mathbf{w}\cdot\phi(x))-y)^2
+\end{equation*}
+\textbf{b.} El gradiente de la perdida cuadratica se calcula como sigue:
+\begin{equation*}
+	\text{Loss}(x,y,\mathbf{w})=((1+e^{-\mathbf{w}\cdot\phi(x)})^{-1}-y)^2
+\end{equation*}
+\begin{equation*}
+	\nabla_{w}\text{Loss}(x,y,\mathbf{w})=2((1+e^{-\mathbf{w}\cdot\phi(x)})^{-1}-y)\cdot(-1)(1+e^{-\mathbf{w}\cdot\phi(x)})^{-2}\cdot(e^{-\mathbf{w}\cdot\phi(x)})\phi(x)
+\end{equation*}
+\begin{equation*}
+	\nabla_{w}\text{Loss}(x,y,\mathbf{w})=2((1+e^{-\mathbf{w}\cdot\phi(x)})^{-1}-y)\cdot(1+e^{-\mathbf{w}\cdot\phi(x)})^{-2}\cdot(e^{-\mathbf{w}\cdot\phi(x)})\phi(x)
+\end{equation*}
+\begin{equation*}
+	\nabla_{w}\text{Loss}(x,y,\mathbf{w})=
+	2(\sigma(\mathbf{w}\cdot\phi(x))-y)\cdot(\sigma(\mathbf{w}\cdot\phi(x)))^{2}\cdot(\sigma(\mathbf{w}\cdot\phi(x))^{-1}-1)\phi(x)
+\end{equation*}
+Considerando $p=\sigma(\mathbf{w}\cdot\phi(x))$:
+\begin{equation*}
+	\nabla_{w}\text{Loss}(x,y,\mathbf{w})=
+	2(p-y)\cdot(p)^{2}\cdot(p^{-1}-1)\phi(x)
+\end{equation*}
+\textbf{c.} Si consideramos $\mathbf{w}$ pequeño el primer termino con $\sigma(\mathbf{w}\cdot\phi(x))$ se acerca solamente a $1/2$, en consecuencia el segundo termino se acerta a $1/4$, y el ultimo termino se acerca a la unidad, por lo tanto hacer $\mathbf{w}$ cada vez más pequeño converge a un valor diferente de cero. Ahora, con $\mathbf{w}$ muy grande, el $\sigma(\mathbf{w}\cdot\phi(x))$ contenido en el primer termino se acerca a la unidad, pero como $\mathbf{w}$ es finito nunca llega a cero, solo se hace cada vez más pequeño, al igual que en el tercer termino. En sintesis, con $\mathbf{w}$ grande el gradiente se acerca arbitrariamente a cero, pero nunca puede ser completamente cero.
+
+
+
+
+
+
+
+
 
 
 
