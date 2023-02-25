@@ -15,6 +15,7 @@ def test_3a():
         output = sentimientos.extractWordFeatures(test_case["input"])
         assert output == test_case["output"]
 
+test_3a()
 
 test_cases_3b = [
     {

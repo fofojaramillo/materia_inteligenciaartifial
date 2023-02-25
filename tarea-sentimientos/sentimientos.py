@@ -1,6 +1,5 @@
 import random
 from typing import Callable, Dict, List, Tuple, TypeVar
-
 from util import *
 
 FeatureVector = Dict[str, int]
@@ -25,7 +24,11 @@ def extractWordFeatures(x: str) -> FeatureVector:
     Ejemplo: "I am what I am" --> {'I': 2, 'am': 2, 'what': 1}
     """
     # Inicio de tu código
-    raise Exception("Aún no implementada")
+    words=x.split()
+    FeatureVector={}
+    for i in words:
+        FeatureVector[i] = FeatureVector.get(i, 0) + 1        
+    return FeatureVector
     # Fin de tu código
 
 
