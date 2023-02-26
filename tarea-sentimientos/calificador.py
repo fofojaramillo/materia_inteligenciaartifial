@@ -80,7 +80,7 @@ def test_3b2():
     assert trainError < 0.04
     assert validationError < 0.30
 
-test_3b2()
+#test_3b2()
 
 def test_3c0():
     weights = {"hello": 1, "world": 1}
@@ -88,6 +88,7 @@ def test_3c0():
     for datapt in data:
         assert (util.dotProduct(datapt[0], weights) >= 0) == (datapt[1] == 1)
 
+test_3c0()
 
 def test_3c1():
     weights = {}
@@ -99,6 +100,7 @@ def test_3c1():
     for phi, y in data:
         assert (util.dotProduct(phi, weights) >= 0) == (y == 1)
 
+test_3c1()
 
 def test_3d0():
     fe = sentimientos.extractCharacterFeatures(3)
@@ -114,3 +116,5 @@ def test_3d0():
         "rld": 1,
     }
     assert ans == fe(sentence)
+
+test_3d0()

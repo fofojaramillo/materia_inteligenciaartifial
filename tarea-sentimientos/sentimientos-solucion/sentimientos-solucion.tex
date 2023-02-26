@@ -220,6 +220,11 @@ Considerando $p=\sigma(\mathbf{w}\cdot\phi(x))$:
 \end{equation*}
 \textbf{c.} Si consideramos $\mathbf{w}$ pequeño el primer termino con $\sigma(\mathbf{w}\cdot\phi(x))$ se acerca solamente a $1/2$, en consecuencia el segundo termino se acerta a $1/4$, y el ultimo termino se acerca a la unidad, por lo tanto hacer $\mathbf{w}$ cada vez más pequeño converge a un valor diferente de cero. Ahora, con $\mathbf{w}$ muy grande, el $\sigma(\mathbf{w}\cdot\phi(x))$ contenido en el primer termino se acerca a la unidad, pero como $\mathbf{w}$ es finito nunca llega a cero, solo se hace cada vez más pequeño, al igual que en el tercer termino. En sintesis, con $\mathbf{w}$ grande el gradiente se acerca arbitrariamente a cero, pero nunca puede ser completamente cero.
 
+\subsection*{3. Clasificación de sentimientos}
+Use la función \textit{testValuesOfN()} en un bucle que recorría un rango de valores enteros en $[1,10]$ para ver como cambiaba el \textit{validation error}, viendo que entre los valores de $n=4$ y $n=8$ esta cantidad era parecida a cuando se usaba el extractor con características de palabras, siendo minima con $n=7$. Asumo que esto la mayoría de la palabras de uso común tienen esta misma cantidad de caracteres. Se puede pensar en que capturar caracteres en vez de palabras es mejor si las reseñas con las que se va a entrenar y se va a validar son reseñas de palabras cortas, de menos de 4 palabras aproximadamente. Por ejemplo: "muy bien todo en la peli".
+
+\subsection*{4. Clasificación de toxicidad y pérdida máxima de grupo}
+
 
 
 

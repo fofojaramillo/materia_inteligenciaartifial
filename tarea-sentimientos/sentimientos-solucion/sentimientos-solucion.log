@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.11)  25 FEB 2023 01:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.11)  25 FEB 2023 16:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -889,10 +889,10 @@ LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 ) ) 
 Here is how much of TeX's memory you used:
- 21573 strings out of 478659
- 446586 string characters out of 2855739
- 752410 words of memory out of 3000000
- 39268 multiletter control sequences out of 15000+600000
+ 21576 strings out of 478659
+ 446624 string characters out of 2855739
+ 752411 words of memory out of 3000000
+ 39271 multiletter control sequences out of 15000+600000
  409977 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,12n,89p,1152b,363s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -908,7 +908,7 @@ s/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public
 /amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm
 /cmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><
 C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on sentimientos-solucion.pdf (3 pages, 164393 bytes).
+Output written on sentimientos-solucion.pdf (3 pages, 169308 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

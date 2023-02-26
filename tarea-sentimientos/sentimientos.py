@@ -66,7 +66,7 @@ def learnPredictor(
         for feature in featureExtractor(example):
             weights[feature]=0
     
-    for epochs in range(numEpochs):
+    for epoch in range(numEpochs):
         for example, label in trainExamples:
             
             feature = featureExtractor(example)
@@ -77,7 +77,6 @@ def learnPredictor(
 
             for key in gradient:
                 weights[key]-= eta*gradient[key]
-    # Fin de tu código
     return weights
 
 
@@ -102,7 +101,8 @@ def generateDataset(numExamples: int, weights: WeightVector) -> List[Example]:
     # Nota que el vector de pesos puede ser arbitrario durante las pruebas.
     def generateExample() -> Tuple[Dict[str, int], int]:
         # Inicio de tu código
-        raise Exception("Aún no implementada")
+        phi = {feature: random.random() for feature in random.sample(list(weights), random.randint(0,len(weights)))}
+        y = 1 if dotProduct(weights, phi) >= 0 else -1
         # Fin de tu código
         return phi, y
 
@@ -124,7 +124,11 @@ def extractCharacterFeatures(n: int) -> Callable[[str], FeatureVector]:
 
     def extract(x: str) -> Dict[str, int]:
         # Inicio de tu código
-        raise Exception("Aún no implementada")
+        chain = x.replace(" ", "")
+        feature = {}
+        for i in range(len(chain)-n+1):
+            feature[chain[i:i+n]] = feature.get(i, 0) + 1
+        return feature       
         # Fin de tu código
 
     return extract
@@ -164,8 +168,12 @@ def testValuesOfN(n: int):
             % (trainError, validationError)
         )
     )
-
-
+"""
+for i in range(1,11):
+    print(f"Con n igual a {i}")
+    print(testValuesOfN(i))
+    print("----------------------------------------------")
+"""
 ############################################################
 # Problem 5: k-means
 ############################################################
