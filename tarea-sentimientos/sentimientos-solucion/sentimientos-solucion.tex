@@ -224,12 +224,108 @@ Considerando $p=\sigma(\mathbf{w}\cdot\phi(x))$:
 Use la función \textit{testValuesOfN()} en un bucle que recorría un rango de valores enteros en $[1,10]$ para ver como cambiaba el \textit{validation error}, viendo que entre los valores de $n=4$ y $n=8$ esta cantidad era parecida a cuando se usaba el extractor con características de palabras, siendo minima con $n=7$. Asumo que esto la mayoría de la palabras de uso común tienen esta misma cantidad de caracteres. Se puede pensar en que capturar caracteres en vez de palabras es mejor si las reseñas con las que se va a entrenar y se va a validar son reseñas de palabras cortas, de menos de 4 palabras aproximadamente. Por ejemplo: "muy bien todo en la peli".
 
 \subsection*{4. Clasificación de toxicidad y pérdida máxima de grupo}
+\textbf{a.} Se tiene al clasificador $D:\textbf{w}=[-0.1,1,0]$ y al clasificador $T:\textbf{w}=[-0.1,0,1]$, con $\phi(x)=[1,d,t]$ y $f_{\textbf{w}}(x)=sign(\textbf{w}\cdot\phi(x)$. Se procede a analizar el clasificador $D$:\\
+\begin{equation*}
+	f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,d,t])=sign(-0.1+d)
+\end{equation*}
+Tomando la definición de sign(z) entonces vemos que $f_{\textbf{w}}(x)=+1$ cuando $d=1$, y $f_{\textbf{w}}(x)=-1$ cuando $d=-1$. Vemos que se clasifica a un comentario donde se mencionan identidades demograficas como un comentario tóxico, aunque no haya palabras toxicas. 
+\\
+Se procede a analizar el clasificador $T$:
+\begin{equation*}
+	f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,d,t])=sign(-0.1+t)
+\end{equation*}
+Vemos que $f_{\textbf{w}}(x)=+1$ cuando $t=1$, y $f_{\textbf{w}}(x)=-1$ cuando $t=-1$. Por lo que este clasificador encontrara como comentarios toxicos a los que tengan palabras toxicas, pero no identidades demograficas. 
+\textbf{b.} Para el clasificador $D$
+Tenemos que la perdida cero-uno es de la siguiente forma:
+	\begin{equation}
+		\text{Loss}_{0-1}=1[f_{\textbf{w}}(x)\neq y]
+	\end{equation}
+	Con y=-1
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,0,0])=-1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,0,1])=-1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,1,0])=+1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+		\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,1,1])=+1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+	\begin{equation*}
+		\text{TrainLoss}_{-1}=\frac{1}{4}(0+0+1+1)=0.5
+	\end{equation*}
+	Con y=1
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,0,0])=-1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,0,1])=-1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,1,0])=+1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+		\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,1,0]\cdot[1,1,1])=+1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+	\begin{equation*}
+		\text{TrainLoss}_{+1}=\frac{1}{4}(1+1+0+0)=0.5
+	\end{equation*}
+\text{c.}
+Para el clasificador $T$
+Tenemos que la perdida cero-uno es de la siguiente forma:
+	Con y=-1
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,0,0])=-1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,0,1])=+1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,1,0])=-1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+		\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,1,1])=+1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+	\begin{equation*}
+		\text{TrainLoss}_{-1}=\frac{1}{4}(0+1+0+1)=0.5
+	\end{equation*}
+	Con y=1
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,0,0])=-1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,0,1])=+1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+	\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,1,0])=-1\rightarrow
+		\text{Loss}_{0-1}=1
+	\end{equation*}
+		\begin{equation*}
+		f_{\textbf{w}}(x)=sign([-0.1,0,1]\cdot[1,1,1])=+1\rightarrow
+		\text{Loss}_{0-1}=0
+	\end{equation*}
+	\begin{equation*}
+		\text{TrainLoss}_{+1}=\frac{1}{4}(1+0+1+0)=0.5
+	\end{equation*}
+\text{d.} Como se vió más arriba, el clasificador $D$ etiqueta incorrectamente a comentarios como toxico al contener menciones de identidades demográficas, lo cual contribuye a la invisibilización de estos grupos. El clasificador $T$ también tiene errores, pero sus errores no contienen la consecuencia anterior mencionada, y eligiendo el mal menor, este sería el mejor clasificador a mi parecer. Para que el algoritmo sea justo se debe limitar a la cantidad de errores de clasificación de cada grupo.
 
-
-
-
-
-
+\text{e.} En principio, creo yo, tendría que haber una discusión sobre los criterios que seguirá la red social para determinar que actitudes o comportamientos son tóxicos. Todo esto acompañado de personas con que sepan sobre el tema, tener una perspectiva amplia. Una vez tenidos los criterios, a mano se clasificarán datos de entrenamiento siguiendo estos criterios. A su vez que estos criterios se comparten con la comunidad, y posteriormente se entrena a la IA con ayuda de los usuarios.
 
 
 
