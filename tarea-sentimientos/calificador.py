@@ -80,7 +80,7 @@ def test_3b2():
     assert trainError < 0.04
     assert validationError < 0.30
 
-#test_3b2()
+
 
 def test_3c0():
     weights = {"hello": 1, "world": 1}
