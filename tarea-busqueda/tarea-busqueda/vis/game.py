@@ -3,15 +3,20 @@ import sys
 import matplotlib as mpl
 import pygame
 
-# from astar import AstarSearch
 from problem import Problem
 from ucs import UniformCostSearch
+from bt import Backtracking
+from dfs import DepthFirstSearch
+from bfs import BreadthFirstSearch
+from dfsid import DepthFirstSearchID
+from dp import DynamicProgramming
+from astar import AStar
 
 cmap = mpl.colormaps["inferno"]
-hcells = 80
-vcells = 80
-cellw = 10
-cellh = 10
+hcells = 40
+vcells = 35
+cellw = 20
+cellh = 20
 
 
 class Button:
@@ -58,8 +63,8 @@ class Button:
 class Game:
     def __init__(self):
         pygame.init()
-        w = max(hcells * cellw, 640 + 32)
-        h = (vcells * cellh) + 32
+        w = max(hcells * cellw, 640+ 32)
+        h = (vcells * cellh + 32)
         self.screen = pygame.display.set_mode((w, h))
         self.problem = Problem(hcells, vcells)
         self.clock = pygame.time.Clock()
@@ -83,12 +88,12 @@ class Game:
         self.astar_btn = Button("./assets/route-astar.png", 64, 32, 7 * 32 + 6 * 64, 0)
 
         self.pause_btn.setEnabled(False)
-        self.bt_btn.setEnabled(False)
-        self.dfs_btn.setEnabled(False)
-        self.bfs_btn.setEnabled(False)
-        self.dfsid_btn.setEnabled(False)
-        self.dp_btn.setEnabled(False)
-        self.astar_btn.setEnabled(False)
+        #self.bt_btn.setEnabled(False)
+        #self.dfs_btn.setEnabled(False)
+        #self.bfs_btn.setEnabled(False)
+        #self.dfsid_btn.setEnabled(False)
+        #self.dp_btn.setEnabled(False)
+        #self.astar_btn.setEnabled(False)
 
         self.buttons = [
             self.pen_btn,
@@ -108,18 +113,18 @@ class Game:
         ]
 
         self.algorithms = [
-            (self.bt_btn, None),
-            (self.dfs_btn, None),
-            (self.bfs_btn, None),
-            (self.dfsid_btn, None),
-            (self.dp_btn, None),
+            (self.bt_btn, Backtracking),
+            (self.dfs_btn, DepthFirstSearch),
+            (self.bfs_btn, BreadthFirstSearch),
+            (self.dfsid_btn, DepthFirstSearchID),
+            (self.dp_btn, DynamicProgramming),
             (self.ucs_btn, UniformCostSearch),
-            (self.astar_btn, None),
+            (self.astar_btn, AStar),
         ]
 
         self.algorithmButton = None
         self.algorithm = None
-        self.selectAlgorithm(self.ucs_btn)
+        self.selectAlgorithm(self.bt_btn)
 
         self.tool = "pen"
         self.pen_btn.setActive(True)
