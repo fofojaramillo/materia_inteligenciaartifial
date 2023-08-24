@@ -22,7 +22,7 @@ class AStar(SearchAlgorithm):
         return path
     
     def heuristic(self, state):
-        return (math.sqrt((state[0] -self.problem.endState()[0])**2 +(state[1]-self.problem.endState()[1])**2))
+        return (math.sqrt((state[0] - self.problem.endState()[0])**2 +(state[1]-self.problem.endState()[1])**2))
     
     def step(self):
         problem = self.problem

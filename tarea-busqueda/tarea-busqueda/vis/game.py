@@ -13,10 +13,10 @@ from dp import DynamicProgramming
 from astar import AStar
 
 cmap = mpl.colormaps["inferno"]
-hcells = 30
-vcells = 30
-cellw = 20
-cellh = 20
+hcells = 7
+vcells = 7
+cellw = 100
+cellh = 100
 
 
 class Button:
@@ -233,7 +233,7 @@ class Game:
             btn.handleHover(self.mousex, self.mousey)
         if self.running:
             self.path = self.algorithm.step()
-        self.clock.tick(1000)
+        self.clock.tick(10)
 
     def draw(self):
         self.screen.fill(self.bg_color)
